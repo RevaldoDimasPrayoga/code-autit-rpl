@@ -1,0 +1,84 @@
+class Student:
+    def __init__(self, name, scores):
+        self.name = name
+        self.scores = scores
+
+    def calculate_average(self):
+        return sum(self.scores) / len(self.scores)
+
+    def get_grade(self):
+        avg = self.calculate_average()
+        if avg >= 85:
+            return "A"
+        elif avg >= 70:
+            return "B"
+        elif avg >= 60:
+            return "C"
+        return "D"
+
+
+
+    manager = StudentManager()
+class StudentManager:
+    def __init__(self):
+        self.students = []
+
+    def add_student(self, name, scores):
+        student = Student(name, scores)
+        self.students.append(student)
+
+    def display_students(self):
+        if not self.students:
+            print("Belum ada data.")
+            return
+
+        for student in self.students:
+            average = student.calculate_average()
+            grade = student.get_grade()
+
+            print(f"Nama       : {student.name}")
+            print(f"Nilai      : {student.scores}")
+            print(f"Rata-rata  : {average:.2f}")
+            print(f"Grade      : {grade}")
+            print("-" * 20)
+
+
+def get_student_input():
+    name = input("Nama: ")
+    scores = [
+        int(input("Nilai 1: ")),
+        int(input("Nilai 2: ")),
+        int(input("Nilai 3: "))
+    ]
+    return name, scores
+
+
+def show_menu():
+    print("\n=== MENU ===")
+    print("1. Tambah Data")
+    print("2. Tampilkan Data")
+    print("3. Keluar")
+
+
+def main():
+    while True:
+        show_menu()
+        choice = input("Pilih: ")
+
+        if choice == "1":
+            name, scores = get_student_input()
+            manager.add_student(name, scores)
+
+        elif choice == "2":
+            manager.display_students()
+
+        elif choice == "3":
+            print("Program selesai.")
+            break
+
+        else:
+            print("Input tidak valid.")
+
+
+if __name__ == "__main__":
+    main()
